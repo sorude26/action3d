@@ -9,7 +9,5 @@ public class MoveController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _rb.isKinematic = false;
-        _rb.useGravity = false;
     }
 }
