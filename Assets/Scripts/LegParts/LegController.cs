@@ -15,6 +15,7 @@ public partial class LegController : MonoBehaviour
         JumpLeft,
         JumpRight,
         Landing,
+        LandingEnd,
         TurnLeft,
         TurnRight,
         BoostFlont,
@@ -27,8 +28,11 @@ public partial class LegController : MonoBehaviour
     [Tooltip("接地判定用センサー")]
     [SerializeField]
     private WallChecker _groundChecker = default;
+    private ActionParameter _parameter = default;
     /// <summary> 現在のステート </summary>
     private ILegState _currentState = default;
+    private float _stateTimer = default;
+    private bool _isStateOn = default;
     private StateIdle _sIdle = new StateIdle();
     private Vector3 _moveVector = default;
     private void Start()
