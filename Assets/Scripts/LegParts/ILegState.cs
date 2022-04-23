@@ -13,16 +13,16 @@ public partial class LegController
         /// ステート開始時
         /// </summary>
         /// <param name="control"></param>
-        void OnEnter(LegControl control);
+        void OnEnter(LegController control);
         /// <summary>
         /// ステートUpdate
         /// </summary>
         /// <param name="control"></param>
-        void OnUpdate(LegControl control);
+        void OnUpdate(LegController control);
         /// <summary>
         /// ステート移動関係Update
         /// </summary>
         /// <param name="control"></param>
-        void OnFixedUpdate(LegControl control);
+        void OnFixedUpdate(LegController control);
     }
 }

@@ -9,6 +9,7 @@ public partial class LegController : MonoBehaviour
         Idle,
         Fall,
         Walk,
+        WalkBack,
         Ran,
         Jump,
         JumpLeft,
@@ -23,12 +24,13 @@ public partial class LegController : MonoBehaviour
         AttackLeft,
         AttackRight,
     }
-    [Tooltip("設地判定用センサー")]
+    [Tooltip("接地判定用センサー")]
     [SerializeField]
     private WallChecker _groundChecker = default;
     /// <summary> 現在のステート </summary>
     private ILegState _currentState = default;
     private StateIdle _sIdle = new StateIdle();
+    private Vector3 _moveVector = default;
     private void Start()
     {
         _currentState = _sIdle;
@@ -37,7 +39,19 @@ public partial class LegController : MonoBehaviour
     {
         
     }
-    private void ChangeState()
+    private void ChangeState(StateType targetState)
+    {
+
+    }
+    private void ChangeAnimation(StateType type)
+    {
+
+    }
+    public void Move(Vector3 dir)
+    {
+        
+    }
+    public void Look(Vector3 dir)
     {
 
     }
