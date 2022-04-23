@@ -9,15 +9,15 @@ partial class LegController
         {
             if (control._moveVector.x < 0)
             {
-                control.ChangeAnimation(StateType.JumpLeft);
+                control.ChangeAnimation(LegStateType.JumpLeft);
             }
             else if(control._moveVector.x > 0)
             {
-                control.ChangeAnimation(StateType.JumpRight);
+                control.ChangeAnimation(LegStateType.JumpRight);
             }
             else
             {
-                control.ChangeAnimation(StateType.Jump);
+                control.ChangeAnimation(LegStateType.Jump);
             }
         }
 

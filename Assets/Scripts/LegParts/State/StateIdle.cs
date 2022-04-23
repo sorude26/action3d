@@ -8,14 +8,14 @@ partial class LegController
     {
         public void OnEnter(LegController control)
         {
-            control.ChangeAnimation(StateType.Idle);
+            control.ChangeAnimation(LegStateType.Idle);
         }
 
         public void OnFixedUpdate(LegController control)
         {
             if (!control._groundChecker.IsWalled())
             {
-                control.ChangeState(StateType.Fall);
+                control.ChangeState(LegStateType.Fall);
             }
         }
 

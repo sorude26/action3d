@@ -8,7 +8,7 @@ partial class LegController
     {
         public void OnEnter(LegController control)
         {
-            control.ChangeAnimation(StateType.Landing);
+            control.ChangeAnimation(LegStateType.Landing);
             control._stateTimer = control._parameter.LandingTime;
             control._isStateOn = true;
         }
@@ -17,7 +17,7 @@ partial class LegController
         {
             if (!control._groundChecker.IsWalled())
             {
-                control.ChangeState(StateType.Fall);
+                control.ChangeState(LegStateType.Fall);
             }
         }
 
@@ -30,7 +30,7 @@ partial class LegController
             control._stateTimer -= Time.deltaTime;
             if (control._stateTimer <= 0)
             {
-                control.ChangeAnimation(StateType.LandingEnd);
+                control.ChangeAnimation(LegStateType.LandingEnd);
                 control._isStateOn = false;
             }
         }

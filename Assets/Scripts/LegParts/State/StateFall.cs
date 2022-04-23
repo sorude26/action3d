@@ -13,7 +13,7 @@ partial class LegController
         {
             if (control._groundChecker.IsWalled())
             {
-                control.ChangeState(StateType.Landing);
+                control.ChangeState(LegStateType.Landing);
             }
         }
 

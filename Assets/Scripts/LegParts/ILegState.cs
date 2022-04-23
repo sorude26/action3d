@@ -26,3 +26,28 @@ public partial class LegController
         void OnFixedUpdate(LegController control);
     }
 }
+/// <summary>
+/// ãrïîèÛë‘ñºèÃ
+/// </summary>
+public enum LegStateType
+{
+    Idle,
+    Fall,
+    Walk,
+    WalkBack,
+    Ran,
+    Jump,
+    JumpLeft,
+    JumpRight,
+    Float,
+    Landing,
+    LandingEnd,
+    TurnLeft,
+    TurnRight,
+    Boost,
+    BoostBack,
+    BoostLeft,
+    BoostRight,
+    AttackLeft,
+    AttackRight,
+}

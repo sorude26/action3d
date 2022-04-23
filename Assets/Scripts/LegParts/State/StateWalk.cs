@@ -5,28 +5,50 @@ partial class LegController
 {
     public class StateWalk : ILegState
     {
+        private Vector3Int _currentDir = default;
         public void OnEnter(LegController control)
         {
-            if (control._moveVector.z > 0)
-            {
-                control.ChangeAnimation(StateType.Walk);
-            }
-            else
-            {
-                control.ChangeAnimation(StateType.WalkBack);
-            }
+            ChangeDir(control);
         }
 
         public void OnFixedUpdate(LegController control)
         {
             if (!control._groundChecker.IsWalled())
             {
-                control.ChangeState(StateType.Fall);
+                control.ChangeState(LegStateType.Fall);
             }
         }
 
         public void OnUpdate(LegController control)
         {
+            if (_currentDir != control._moveVector)
+            {
+                ChangeDir(control);
+            }
+        }
+        private void ChangeDir(LegController control)
+        {
+            _currentDir = control._moveVector;
+            if (_currentDir.z > 0)
+            {
+                control.ChangeAnimation(LegStateType.Walk);
+            }
+            else if (_currentDir.z < 0)
+            {
+                control.ChangeAnimation(LegStateType.WalkBack);
+            }
+            else if (_currentDir.x < 0)
+            {
+                control.ChangeAnimation(LegStateType.TurnLeft);
+            }
+            else if (_currentDir.x > 0)
+            {
+                control.ChangeAnimation(LegStateType.TurnRight);
+            }
+            else
+            {
+                control.ChangeState(LegStateType.Idle);
+            }
         }
     }
 }
