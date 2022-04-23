@@ -12,9 +12,11 @@ public partial class LegController : MonoBehaviour
     [SerializeField]
     private LegAnimationController _legAnimetor = default;
     private ActionParameter _parameter = default;
+    private MoveController _moveController = null;
     private Vector3Int _moveVector = default;
     /// <summary> 現在のステート </summary>
     private ILegState _currentState = default;
+    private LegStateType _currentStateType = default;
     private float _stateTimer = default;
     private bool _isStateOn = default;
     #region LegState
@@ -28,6 +30,7 @@ public partial class LegController : MonoBehaviour
     #endregion
     private void Start()
     {
+        _currentStateType = LegStateType.Idle;
         _currentState = _sIdle;
     }
     private void Update()
@@ -40,6 +43,11 @@ public partial class LegController : MonoBehaviour
     }
     private void ChangeState(LegStateType targetState)
     {
+        if (_currentStateType == targetState)
+        {
+            return;
+        }
+        _currentStateType = targetState;
         switch (targetState)
         {
             case LegStateType.Idle:
@@ -72,9 +80,32 @@ public partial class LegController : MonoBehaviour
     {
         _legAnimetor.ChangeAnimation(type);
     }
+    private void OnMove()
+    {
+        if(_moveVector.z > 0)
+        {
+            _moveController.MoveWalk(transform.forward);
+        }
+        else
+        {
+            _moveController.MoveWalk(-transform.forward);
+        }
+    }
+    private void OnTurn()
+    {
+        _moveController.Turn(_moveVector.x);
+    }
+    private void OnJump()
+    {
+        _moveController.MoveJump(new Vector3(transform.forward.x * _moveVector.x, 0, transform.forward.z * _moveVector.z).normalized + Vector3.up);
+    }
+    private void OnStop()
+    {
+        ChangeState(LegStateType.Idle);
+    }
     public void Move(Vector3 dir)
     {
-
+      
     }
     public void Look(Vector3 dir)
     {
