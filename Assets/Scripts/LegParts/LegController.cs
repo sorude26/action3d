@@ -13,8 +13,9 @@ public partial class LegController : MonoBehaviour
     private ActionParameter _parameter = default;
     private MoveController _moveController = null;
     private bool _isActive = false;
-    private Vector3Int _moveVector = default;
+    private Vector3 _moveVector = default;
     private Vector3 _jumpVector = default;
+    private Vector3 _currentDir = default;
     /// <summary> 現在のステート </summary>
     private ILegState _currentState = default;
     private LegStateType _currentStateType = default;
@@ -88,10 +89,6 @@ public partial class LegController : MonoBehaviour
         }
         _currentState.OnEnter(this);
     }
-    private void ChangeAnimation(LegStateType type)
-    {
-        _legAnimetor.ChangeAnimation(type);
-    }
     private void OnMove()
     {
         if(_moveVector.z > 0)
@@ -105,7 +102,7 @@ public partial class LegController : MonoBehaviour
     }
     private void OnTurn()
     {
-        _moveController.Turn(_moveVector.x);
+        _moveController.Turn(_currentDir.x);
     }
     private void OnJump()
     {
@@ -122,7 +119,8 @@ public partial class LegController : MonoBehaviour
     }
     private void OnBoost()
     {
-        _moveController.MoveJet(new Vector3(_legAnimetor.transform.forward.x * _moveVector.x, 0, _legAnimetor.transform.forward.z * _moveVector.z).normalized);
+        Vector3 dir = _legAnimetor.transform.forward * _moveVector.z + _legAnimetor.transform.right * _moveVector.x + Vector3.up;
+        _moveController.MoveJet(dir.normalized);
     }
     public void StartSet(ActionParameter parameter, MoveController controller)
     {
@@ -133,14 +131,40 @@ public partial class LegController : MonoBehaviour
     }
     public void Jump()
     {
+        if (_currentStateType == LegStateType.Float)
+        {
+            return;
+        }
         if (_groundChecker.IsWalled())
         {
             ChangeState(LegStateType.Jump);
         }
     }
+    public void Boost()
+    {
+        if (_currentStateType == LegStateType.Fall)
+        {
+            OnBoost();
+        }
+    }
+    public void ChangeMode()
+    {
+        if (_currentStateType == LegStateType.Landing)
+        {
+            return;
+        }
+        if (_currentStateType == LegStateType.Float)
+        {
+            _isStateOn = false;
+        }
+        else
+        {
+            ChangeState(LegStateType.Float);
+        }
+    }
     public void Move(Vector3 dir)
     {
-        _moveVector = Vector3Int.zero;
+        _moveVector = Vector3.zero;
         if (dir.x > 0)
         {
             _moveVector.x = 1;
@@ -161,7 +185,7 @@ public partial class LegController : MonoBehaviour
         {
             return;
         }
-        if (_moveVector != Vector3Int.zero) 
+        if (_moveVector != Vector3.zero) 
         {
             ChangeState(LegStateType.Walk);
         }

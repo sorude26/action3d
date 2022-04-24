@@ -9,8 +9,9 @@ using UnityEngine;
 public class MoveController : MonoBehaviour
 {
     private const float BRAKE_DECELERATE = 0.3f;
-    private const float FLOAT_DELAY = 0.999f;
-    private const float GROUND_DELAY = 0.991f;
+    private const float FLOAT_DELAY = 0.2999f;
+    private const float GROUND_DELAY = 0.7f;
+    private const float GRAVITY_SCALE = -0.098f;
     private ActionParameter _parameter = default;
     private Rigidbody _rb = default;
     private Quaternion _baseRotation = Quaternion.Euler(0, 0, 0);
@@ -34,7 +35,7 @@ public class MoveController : MonoBehaviour
     /// <summary>
     /// ホバー中移動速度減衰
     /// </summary>
-    private void FloatDelay()
+    public void FloatDelay()
     {
         Vector3 current = Vector3.zero;
         current.x = _rb.velocity.x;
@@ -44,12 +45,18 @@ public class MoveController : MonoBehaviour
     /// <summary>
     /// 地上移動速度減衰
     /// </summary>
-    private void GroundDelay()
+    public void GroundDelay()
     {
         Vector3 current = _rb.velocity;
-        float currentY = current.y;
+        float currentY = current.y * GRAVITY_SCALE;
         current *= GROUND_DELAY;
         current.y = currentY;
+        _rb.velocity = current;
+    }
+    public void FlyDelay()
+    {
+        Vector3 current = _rb.velocity;
+        current.y = current.y + GRAVITY_SCALE;
         _rb.velocity = current;
     }
     private void ShortMove(Vector3 dir, float power, float maxSpeed)
@@ -69,14 +76,6 @@ public class MoveController : MonoBehaviour
     public void StartSet(ActionParameter parameter)
     {
         _parameter = parameter;
-    }
-    public void UpdateController()
-    {
-        GroundDelay();
-    }
-    public void UpdateControllerFloat()
-    {
-        FloatDelay();
     }
     public void MoveBrake()
     {
@@ -102,7 +101,8 @@ public class MoveController : MonoBehaviour
     }
     public void MoveFloat(Vector3 dir)
     {
-        VelocityMove(dir, _parameter.FloatSpeed, _parameter.MaxFloatSpeed);
+        _rb.AddForce(dir.normalized * _parameter.FloatSpeed);
+        //VelocityMove(dir.normalized, _parameter.FloatSpeed, _parameter.MaxFloatSpeed);
     }
     public void Turn(float angle)
     {

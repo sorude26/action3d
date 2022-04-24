@@ -115,4 +115,8 @@ public class LegAnimationController : MonoBehaviour
     {
         _animator.SetFloat("Speed", speed);
     }
+    public void SetAnimationFloat(bool isFloat)
+    {
+        _animator.SetBool("Float", isFloat);
+    }
 }

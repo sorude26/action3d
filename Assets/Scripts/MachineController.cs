@@ -19,21 +19,21 @@ public class MachineController : MonoBehaviour
 
     public Vector3 InputAxis { get => _inputAxis; }
     public Transform LookTarget { get; protected set; }
-    public ActionParameter Parameter { get =>_parameter; }
+    public ActionParameter Parameter { get => _parameter; }
 
     private void Start()
     {
         _moveControl.StartSet(_parameter);
         _legControl.StartSet(_parameter, _moveControl);
     }
-    public void InputMove(float x,float z)
+    public void InputMove(float x, float z)
     {
         _inputAxis = Vector3.zero;
-        if (Mathf.Abs(x) > 0.5f)
+        if (Mathf.Abs(x) > 0)
         {
             _inputAxis.x = x;
         }
-        if (Mathf.Abs(z) > 0.3f)
+        if (Mathf.Abs(z) > 0)
         {
             _inputAxis.z = z;
         }
@@ -43,9 +43,17 @@ public class MachineController : MonoBehaviour
     {
         _legControl.Jump();
     }
+    public void InputBoost()
+    {
+        _legControl.Boost();
+    }
     public void MoveEnd()
     {
         _inputAxis = Vector3.zero;
         _legControl.Move(_inputAxis);
+    }
+    public void InputChangeMode()
+    {
+        _legControl.ChangeMode();
     }
 }
