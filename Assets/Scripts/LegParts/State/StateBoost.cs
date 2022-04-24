@@ -9,19 +9,19 @@ partial class LegController
         {
             if (control._moveVector.z < 0)
             {
-                control.ChangeAnimation(LegStateType.BoostBack);
+                control._legAnimetor.ChangeAnimation(LegStateType.BoostBack);
             }
             else if (control._moveVector.x < 0)
             {
-                control.ChangeAnimation(LegStateType.BoostLeft);
+                control._legAnimetor.ChangeAnimation(LegStateType.BoostLeft);
             }
             else if(control._moveVector.x > 0)
             {
-                control.ChangeAnimation(LegStateType.BoostRight);
+                control._legAnimetor.ChangeAnimation(LegStateType.BoostRight);
             }
             else
             {
-                control.ChangeAnimation(LegStateType.Boost);
+                control._legAnimetor.ChangeAnimation(LegStateType.Boost);
             }
         }
 

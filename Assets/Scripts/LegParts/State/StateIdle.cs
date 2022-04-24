@@ -13,12 +13,12 @@ partial class LegController
                 control.ChangeState(LegStateType.Fall);
                 return;
             }
-            control.ChangeAnimation(LegStateType.Idle);
+            control._legAnimetor.ChangeAnimation(LegStateType.Idle);
         }
 
         public void OnFixedUpdate(LegController control)
         {
-            control._moveController.UpdateController();
+            control._moveController.GroundDelay();
             if (!control._groundChecker.IsWalled())
             {
                 control.ChangeState(LegStateType.Fall);

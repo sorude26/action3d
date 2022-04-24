@@ -5,7 +5,7 @@ partial class LegController
 {
     public class StateWalk : ILegState
     {
-        private Vector3Int _currentDir = default;
+        private const float TURN_DELAY = 0.2f;
         public void OnEnter(LegController control)
         {
             ChangeDir(control);
@@ -13,7 +13,7 @@ partial class LegController
 
         public void OnFixedUpdate(LegController control)
         {
-            control._moveController.UpdateController();
+            control._moveController.GroundDelay();
             if (!control._groundChecker.IsWalled())
             {
                 control.ChangeState(LegStateType.Fall);
@@ -22,29 +22,31 @@ partial class LegController
 
         public void OnUpdate(LegController control)
         {
-            if (_currentDir != control._moveVector)
+            if (control._currentDir != control._moveVector)
             {
                 ChangeDir(control);
             }
         }
         private void ChangeDir(LegController control)
         {
-            _currentDir = control._moveVector;
-            if (_currentDir.z > 0)
+            control._currentDir = control._moveVector;
+            if (control._currentDir.z > 0)
             {
-                control.ChangeAnimation(LegStateType.Walk);
+                control._currentDir.x *= TURN_DELAY;
+                control._legAnimetor.ChangeAnimation(LegStateType.Walk);
             }
-            else if (_currentDir.z < 0)
+            else if (control._currentDir.z < 0)
             {
-                control.ChangeAnimation(LegStateType.WalkBack);
+                control._currentDir.x *= TURN_DELAY;
+                control._legAnimetor.ChangeAnimation(LegStateType.WalkBack);
             }
-            else if (_currentDir.x < 0)
+            else if (control._currentDir.x < 0)
             {
-                control.ChangeAnimation(LegStateType.TurnLeft);
+                control._legAnimetor.ChangeAnimation(LegStateType.TurnLeft);
             }
-            else if (_currentDir.x > 0)
+            else if (control._currentDir.x > 0)
             {
-                control.ChangeAnimation(LegStateType.TurnRight);
+                control._legAnimetor.ChangeAnimation(LegStateType.TurnRight);
             }
             else
             {
