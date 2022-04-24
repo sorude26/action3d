@@ -11,14 +11,20 @@ public class LegAnimationController : MonoBehaviour
     private string[] _animationNames = default;
     [SerializeField]
     private float _defaultChangeTime = 0.2f;
+    [SerializeField]
+    private ParticleSystem _walkEffect = default;
+    [SerializeField]
+    private ParticleSystem _landingEffect = default;
     private Animator _animator = default;
+    private LegStateType _currentAnime = default;
     public event Action OnStop = default;
     public event Action OnMove = default;
     public event Action OnTurn = default;
     public event Action OnJump = default;
     public event Action OnBoost = default;
     public event Action OnBrake = default;
-    private void Start()
+
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
@@ -30,6 +36,7 @@ public class LegAnimationController : MonoBehaviour
     private void Walk()
     {
         OnMove?.Invoke();
+        OnTurn?.Invoke();
     }
     private void Run()
     {
@@ -49,9 +56,17 @@ public class LegAnimationController : MonoBehaviour
     }
     private void Shake()
     {
+        if (_walkEffect)
+        {
+            _walkEffect.Play();
+        }
     }
     private void SmokeEffect()
     {
+        if (_landingEffect)
+        {
+            _landingEffect.Play();
+        }
     }
     private void TurnLeft()
     {
@@ -63,10 +78,16 @@ public class LegAnimationController : MonoBehaviour
     }
     private void Jump()
     {
+        Shake();
         OnJump?.Invoke();
     }
     private void Landing()
     {
+        SmokeEffect();
+    }
+    private void GroundCheck()
+    {
+
     }
     private void Jet()
     {
@@ -83,6 +104,15 @@ public class LegAnimationController : MonoBehaviour
     #endregion
     public void ChangeAnimation(LegStateType type) 
     {
+        if(type == _currentAnime)
+        {
+            return;
+        }
+        _currentAnime = type;
        ChangeAnimation(_animationNames[(int)type], _defaultChangeTime);
+    }
+    public void SetAnimationSpeed(float speed)
+    {
+        _animator.SetFloat("Speed", speed);
     }
 }

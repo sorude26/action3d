@@ -7,6 +7,7 @@ partial class LegController
     {
         public void OnEnter(LegController control)
         {
+            control.ChangeAnimation(LegStateType.Fall);
         }
 
         public void OnFixedUpdate(LegController control)

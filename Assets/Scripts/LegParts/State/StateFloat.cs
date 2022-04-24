@@ -11,6 +11,7 @@ partial class LegController
 
         public void OnFixedUpdate(LegController control)
         {
+            control._moveController.UpdateControllerFloat();
         }
 
         public void OnUpdate(LegController control)

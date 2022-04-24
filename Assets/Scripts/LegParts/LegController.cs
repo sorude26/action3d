@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public partial class LegController : MonoBehaviour
-{
-    
+{    
     [Tooltip("接地判定用センサー")]
     [SerializeField]
     private WallChecker _groundChecker = default;
@@ -13,7 +12,9 @@ public partial class LegController : MonoBehaviour
     private LegAnimationController _legAnimetor = default;
     private ActionParameter _parameter = default;
     private MoveController _moveController = null;
+    private bool _isActive = false;
     private Vector3Int _moveVector = default;
+    private Vector3 _jumpVector = default;
     /// <summary> 現在のステート </summary>
     private ILegState _currentState = default;
     private LegStateType _currentStateType = default;
@@ -32,14 +33,25 @@ public partial class LegController : MonoBehaviour
     {
         _currentStateType = LegStateType.Idle;
         _currentState = _sIdle;
+        _legAnimetor.OnMove += OnMove;
+        _legAnimetor.OnTurn += OnTurn;
+        _legAnimetor.OnStop += OnStop;
+        _legAnimetor.OnJump += OnJump;
+        _legAnimetor.OnBrake += OnBreak;
     }
     private void Update()
     {
-        _currentState.OnUpdate(this);
+        if (_isActive)
+        {
+            _currentState.OnUpdate(this);
+        }
     }
     private void FixedUpdate()
     {
-        _currentState.OnFixedUpdate(this);
+        if (_isActive)
+        {
+            _currentState.OnFixedUpdate(this);
+        }
     }
     private void ChangeState(LegStateType targetState)
     {
@@ -84,11 +96,11 @@ public partial class LegController : MonoBehaviour
     {
         if(_moveVector.z > 0)
         {
-            _moveController.MoveWalk(transform.forward);
+            _moveController.MoveWalk(_legAnimetor.transform.forward);
         }
         else
         {
-            _moveController.MoveWalk(-transform.forward);
+            _moveController.MoveWalk(-_legAnimetor.transform.forward);
         }
     }
     private void OnTurn()
@@ -97,15 +109,62 @@ public partial class LegController : MonoBehaviour
     }
     private void OnJump()
     {
-        _moveController.MoveJump(new Vector3(transform.forward.x * _moveVector.x, 0, transform.forward.z * _moveVector.z).normalized + Vector3.up);
+        Vector3 dir = _legAnimetor.transform.forward * _jumpVector.z + _legAnimetor.transform.right * _jumpVector.x;
+        _moveController.MoveJump(dir.normalized + Vector3.up);
     }
     private void OnStop()
     {
         ChangeState(LegStateType.Idle);
     }
+    private void OnBreak()
+    {
+        _moveController.MoveBrake();
+    }
+    private void OnBoost()
+    {
+        _moveController.MoveJet(new Vector3(_legAnimetor.transform.forward.x * _moveVector.x, 0, _legAnimetor.transform.forward.z * _moveVector.z).normalized);
+    }
+    public void StartSet(ActionParameter parameter, MoveController controller)
+    {
+        _parameter = parameter;
+        _moveController = controller;
+        _isActive = true;
+        _legAnimetor.SetAnimationSpeed(_parameter.ActionSpeed);
+    }
+    public void Jump()
+    {
+        if (_groundChecker.IsWalled())
+        {
+            ChangeState(LegStateType.Jump);
+        }
+    }
     public void Move(Vector3 dir)
     {
-      
+        _moveVector = Vector3Int.zero;
+        if (dir.x > 0)
+        {
+            _moveVector.x = 1;
+        }
+        else if (dir.x < 0)
+        {
+            _moveVector.x = -1;
+        }
+        if(dir.z > 0)
+        {
+            _moveVector.z = 1;
+        }
+        else if(dir.z < 0)
+        {
+            _moveVector.z = -1;
+        }
+        if (_currentStateType != LegStateType.Idle)
+        {
+            return;
+        }
+        if (_moveVector != Vector3Int.zero) 
+        {
+            ChangeState(LegStateType.Walk);
+        }
     }
     public void Look(Vector3 dir)
     {

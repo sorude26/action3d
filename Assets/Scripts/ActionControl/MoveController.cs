@@ -13,12 +13,16 @@ public class MoveController : MonoBehaviour
     private const float GROUND_DELAY = 0.991f;
     private ActionParameter _parameter = default;
     private Rigidbody _rb = default;
-    private Quaternion _baseRotation = default;
+    private Quaternion _baseRotation = Quaternion.Euler(0, 0, 0);
 
     public Transform BaseTransform = null;
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+    private void Update()
+    {
+        RotationUpdate();
     }
     /// <summary>
     /// ê˘âÒUpdate
@@ -62,15 +66,17 @@ public class MoveController : MonoBehaviour
             _rb.velocity = dir * speed;
         }
     }
+    public void StartSet(ActionParameter parameter)
+    {
+        _parameter = parameter;
+    }
     public void UpdateController()
     {
         GroundDelay();
-        RotationUpdate();
     }
     public void UpdateControllerFloat()
     {
         FloatDelay();
-        RotationUpdate();
     }
     public void MoveBrake()
     {

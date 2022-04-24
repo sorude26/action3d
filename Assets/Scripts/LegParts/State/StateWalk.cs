@@ -13,6 +13,7 @@ partial class LegController
 
         public void OnFixedUpdate(LegController control)
         {
+            control._moveController.UpdateController();
             if (!control._groundChecker.IsWalled())
             {
                 control.ChangeState(LegStateType.Fall);

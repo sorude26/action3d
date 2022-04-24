@@ -5,18 +5,28 @@ partial class LegController
 {
     public class StateJump : ILegState
     {
+        private const float JUMP_DELAY = 0.5f;
         public void OnEnter(LegController control)
         {
-            if (control._moveVector.x < 0)
+            control._jumpVector = control._moveVector;
+            if (control._jumpVector.z == 0)
             {
-                control.ChangeAnimation(LegStateType.JumpLeft);
-            }
-            else if(control._moveVector.x > 0)
-            {
-                control.ChangeAnimation(LegStateType.JumpRight);
+                if (control._jumpVector.x < 0)
+                {
+                    control.ChangeAnimation(LegStateType.JumpLeft);
+                }
+                else if (control._jumpVector.x > 0)
+                {
+                    control.ChangeAnimation(LegStateType.JumpRight);
+                }
+                else
+                {
+                    control.ChangeAnimation(LegStateType.Jump);
+                }
             }
             else
             {
+                control._jumpVector.x *= JUMP_DELAY;
                 control.ChangeAnimation(LegStateType.Jump);
             }
         }
