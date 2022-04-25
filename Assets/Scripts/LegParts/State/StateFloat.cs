@@ -9,6 +9,7 @@ partial class LegController
         {
             control._isStateOn = true;
             control._legAnimetor.SetAnimationFloat(true);
+            control._isFloat = true;
         }
 
         public void OnFixedUpdate(LegController control)
@@ -24,6 +25,7 @@ partial class LegController
             {
                 control._legAnimetor.SetAnimationFloat(false);
                 control.ChangeState(LegStateType.Idle);
+                control._isFloat = false;
             }
         }
     }

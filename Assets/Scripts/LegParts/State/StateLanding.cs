@@ -8,6 +8,11 @@ partial class LegController
     {
         public void OnEnter(LegController control)
         {
+            if (control._isFloat)
+            {
+                control.ChangeState(LegStateType.Float);
+                return;
+            }
             control._legAnimetor.ChangeAnimation(LegStateType.Landing);
             control._stateTimer = control._parameter.LandingTime;
             control._isStateOn = true;

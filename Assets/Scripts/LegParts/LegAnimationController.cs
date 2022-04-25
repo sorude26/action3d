@@ -21,8 +21,8 @@ public class LegAnimationController : MonoBehaviour
     public event Action OnMove = default;
     public event Action OnTurn = default;
     public event Action OnJump = default;
-    public event Action OnBoost = default;
     public event Action OnBrake = default;
+    public event Action OnJetBoost = default;
 
     private void Awake()
     {
@@ -92,7 +92,7 @@ public class LegAnimationController : MonoBehaviour
     }
     private void Jet()
     {
-        OnBoost?.Invoke();
+        OnJetBoost?.Invoke();
     }
     private void Stop()
     {

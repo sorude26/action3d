@@ -6530,13 +6530,13 @@ MonoBehaviour:
   _maxRunSpeed: 35
   _turnPower: 8
   _turnSpeed: 3
-  _jumpPower: 45
+  _jumpPower: 35
   _landingTime: 0.6
   _bodyTurnSpeed: 4
   _bodyTurnRange: 0.4
   _cameraTurnRange: 50
   _lockOnRange: 100
-  _jetPower: 3
+  _jetPower: 250
   _jetControlPower: 0.8
   _jetMovePower: 50
   _jetTime: 30

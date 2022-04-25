@@ -8,6 +8,11 @@ partial class LegController
     {
         public void OnEnter(LegController control)
         {
+            if (control._isFloat)
+            {
+                control.ChangeState(LegStateType.Float);
+                return;
+            }
             if (!control._groundChecker.IsWalled())
             {
                 control.ChangeState(LegStateType.Fall);

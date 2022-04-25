@@ -5,12 +5,12 @@ partial class LegController
 {
     public class StateJump : ILegState
     {
-        private const float JUMP_DELAY = 0.5f;
+        private const float JUMP_DELAY = 0.25f;
         public void OnEnter(LegController control)
         {
             control._moveController.MoveBrake();
             control._jumpVector = control._moveVector;
-            if (control._jumpVector.z == 0)
+            if (control._jumpVector.z == 0)//ジャンプアニメーションの切替
             {
                 if (control._jumpVector.x < 0)
                 {

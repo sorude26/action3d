@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public partial class LegController : MonoBehaviour
-{    
+{
+    private const float JUMP_VECTOR = 2f;
+    private const float JET_UPVECTOR = 0.2f;
     [Tooltip("接地判定用センサー")]
     [SerializeField]
     private WallChecker _groundChecker = default;
@@ -15,12 +17,14 @@ public partial class LegController : MonoBehaviour
     private bool _isActive = false;
     private Vector3 _moveVector = default;
     private Vector3 _jumpVector = default;
-    private Vector3 _currentDir = default;
+    private Vector3 _turnVector = default;
+    private Vector3 _jetVector = default;
     /// <summary> 現在のステート </summary>
     private ILegState _currentState = default;
     private LegStateType _currentStateType = default;
     private float _stateTimer = default;
     private bool _isStateOn = default;
+    private bool _isFloat = default;
     #region LegState
     private StateIdle _sIdle = new StateIdle();
     private StateWalk _sWalk = new StateWalk();
@@ -39,6 +43,7 @@ public partial class LegController : MonoBehaviour
         _legAnimetor.OnStop += OnStop;
         _legAnimetor.OnJump += OnJump;
         _legAnimetor.OnBrake += OnBreak;
+        _legAnimetor.OnJetBoost += OnJetBoost;
     }
     private void Update()
     {
@@ -107,12 +112,12 @@ public partial class LegController : MonoBehaviour
     }
     private void OnTurn()
     {
-        _moveController.Turn(_currentDir.x);
+        _moveController.Turn(_turnVector.x);
     }
     private void OnJump()
     {
-        Vector3 dir = _legAnimetor.transform.forward * _jumpVector.z + _legAnimetor.transform.right * _jumpVector.x;
-        _moveController.MoveJump(dir.normalized + Vector3.up);
+        Vector3 dir = _legAnimetor.transform.forward * _jumpVector.z + _legAnimetor.transform.right * _jumpVector.x * JUMP_VECTOR + Vector3.up * JUMP_VECTOR;
+        _moveController.MoveJump(dir.normalized);
     }
     private void OnStop()
     {
@@ -125,7 +130,12 @@ public partial class LegController : MonoBehaviour
     private void OnBoost()
     {
         Vector3 dir = _legAnimetor.transform.forward * _moveVector.z + _legAnimetor.transform.right * _moveVector.x + Vector3.up;
-        _moveController.MoveJet(dir.normalized);
+        _moveController.MoveBoost(dir.normalized);
+    }
+    private void OnJetBoost()
+    {
+        Vector3 dir = _legAnimetor.transform.forward * _jetVector.z + _legAnimetor.transform.right * _jetVector.x + Vector3.up * JET_UPVECTOR;
+        _moveController.MoveJetBoost(dir.normalized);
     }
     public void StartSet(ActionParameter parameter, MoveController controller)
     {
@@ -150,6 +160,14 @@ public partial class LegController : MonoBehaviour
         if (_currentStateType == LegStateType.Fall)
         {
             OnBoost();
+        }
+    }
+    public void JetBoost()
+    {
+        if (_currentStateType == LegStateType.Fall || _currentStateType == LegStateType.Float || _currentStateType == LegStateType.Jump)
+        {
+            ChangeState(LegStateType.Boost);
+            return;
         }
     }
     public void ChangeMode()
