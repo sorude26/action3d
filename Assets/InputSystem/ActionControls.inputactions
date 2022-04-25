@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "JetBoost",
+                    "type": "Button",
+                    "id": "8382d979-aa2e-4b69-9543-f96b756db706",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -200,7 +209,7 @@
                 {
                     "name": "",
                     "id": "82786e66-eeab-48fc-940a-80d4083f7d4a",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -216,6 +225,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChangeMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "74f6fa61-7a77-494b-9951-8df51359f2fe",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JetBoost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df67c9cf-108d-4a10-b03b-2fad805cf598",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JetBoost",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

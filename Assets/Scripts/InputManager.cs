@@ -52,6 +52,7 @@ namespace GameScene
             _inputActions.ActionMap.Jump.started += context => { OnJump(); };
             _inputActions.ActionMap.Jump.canceled += context => { EndJump(); };
             _inputActions.ActionMap.ChangeMode.started += context => { OnChangeMode(); };
+            _inputActions.ActionMap.JetBoost.started += context => { OnJet(); };
             /*
             _inputActions.PlayerController.Move.performed += context => { StartMove(context); };
             _inputActions.PlayerController.Move.canceled += context => { EndMove(); };

@@ -86,9 +86,13 @@ public class MoveController : MonoBehaviour
     {
         _rb.AddForce(dir * _parameter.JumpPower, ForceMode.Impulse);
     }
-    public void MoveJet(Vector3 dir)
+    public void MoveBoost(Vector3 dir)
     {
         _rb.AddForce(dir * _parameter.JetMovePower);
+    }
+    public void MoveJetBoost(Vector3 dir)
+    {
+        _rb.AddForce(dir * _parameter.JetPower, ForceMode.Impulse);
     }
     public void MoveWalk(Vector3 dir)
     {

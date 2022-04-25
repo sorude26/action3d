@@ -13,5 +13,6 @@ public class PlayerController : MonoBehaviour
         GameScene.InputManager.Instance.OnInputJump += _controller.InputBoost;
         GameScene.InputManager.Instance.OnInputAxisRawExit += _controller.MoveEnd;
         GameScene.InputManager.Instance.OnFirstInputChangeMode += _controller.InputChangeMode;
+        GameScene.InputManager.Instance.OnFirstInputBooster += _controller.InputJetBoost;
     }
 }

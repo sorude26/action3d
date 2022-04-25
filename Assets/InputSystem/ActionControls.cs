@@ -62,6 +62,15 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JetBoost"",
+                    ""type"": ""Button"",
+                    ""id"": ""8382d979-aa2e-4b69-9543-f96b756db706"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -222,7 +231,7 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""82786e66-eeab-48fc-940a-80d4083f7d4a"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -240,6 +249,28 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
                     ""action"": ""ChangeMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74f6fa61-7a77-494b-9951-8df51359f2fe"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JetBoost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df67c9cf-108d-4a10-b03b-2fad805cf598"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JetBoost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -252,6 +283,7 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
         m_ActionMap_Camera = m_ActionMap.FindAction("Camera", throwIfNotFound: true);
         m_ActionMap_Jump = m_ActionMap.FindAction("Jump", throwIfNotFound: true);
         m_ActionMap_ChangeMode = m_ActionMap.FindAction("ChangeMode", throwIfNotFound: true);
+        m_ActionMap_JetBoost = m_ActionMap.FindAction("JetBoost", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +347,7 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMap_Camera;
     private readonly InputAction m_ActionMap_Jump;
     private readonly InputAction m_ActionMap_ChangeMode;
+    private readonly InputAction m_ActionMap_JetBoost;
     public struct ActionMapActions
     {
         private @ActionControls m_Wrapper;
@@ -323,6 +356,7 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
         public InputAction @Camera => m_Wrapper.m_ActionMap_Camera;
         public InputAction @Jump => m_Wrapper.m_ActionMap_Jump;
         public InputAction @ChangeMode => m_Wrapper.m_ActionMap_ChangeMode;
+        public InputAction @JetBoost => m_Wrapper.m_ActionMap_JetBoost;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -344,6 +378,9 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
                 @ChangeMode.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnChangeMode;
                 @ChangeMode.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnChangeMode;
                 @ChangeMode.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnChangeMode;
+                @JetBoost.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnJetBoost;
+                @JetBoost.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnJetBoost;
+                @JetBoost.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnJetBoost;
             }
             m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -360,6 +397,9 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
                 @ChangeMode.started += instance.OnChangeMode;
                 @ChangeMode.performed += instance.OnChangeMode;
                 @ChangeMode.canceled += instance.OnChangeMode;
+                @JetBoost.started += instance.OnJetBoost;
+                @JetBoost.performed += instance.OnJetBoost;
+                @JetBoost.canceled += instance.OnJetBoost;
             }
         }
     }
@@ -370,5 +410,6 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
         void OnCamera(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnChangeMode(InputAction.CallbackContext context);
+        void OnJetBoost(InputAction.CallbackContext context);
     }
 }

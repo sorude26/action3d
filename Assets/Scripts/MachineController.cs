@@ -47,6 +47,10 @@ public class MachineController : MonoBehaviour
     {
         _legControl.Boost();
     }
+    public void InputJetBoost()
+    {
+        _legControl.JetBoost();
+    }
     public void MoveEnd()
     {
         _inputAxis = Vector3.zero;
