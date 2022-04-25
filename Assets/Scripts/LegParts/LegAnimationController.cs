@@ -41,6 +41,7 @@ public class LegAnimationController : MonoBehaviour
     private void Run()
     {
         OnMove?.Invoke();
+        OnTurn?.Invoke();
     }
     private void Move()
     {

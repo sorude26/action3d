@@ -6526,7 +6526,7 @@ MonoBehaviour:
   _actionSpeed: 1
   _walkPower: 22
   _maxWalkSpeed: 15
-  _runPower: 1.5
+  _runPower: 120
   _maxRunSpeed: 35
   _turnPower: 8
   _turnSpeed: 3
@@ -6542,7 +6542,7 @@ MonoBehaviour:
   _jetTime: 30
   _jetSpeed: 40
   _needPowerJet: 1
-  _floatSpeed: 500
+  _floatSpeed: 12
   _maxFloatSpeed: 900
   _needPowerFly: 1
   _flyConsumption: 0.1

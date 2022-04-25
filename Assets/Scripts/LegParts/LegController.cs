@@ -93,6 +93,11 @@ public partial class LegController : MonoBehaviour
     {
         if(_moveVector.z > 0)
         {
+            if (_stateTimer < 0)
+            {
+                _moveController.MoveRun(_legAnimetor.transform.forward);
+                return;
+            }
             _moveController.MoveWalk(_legAnimetor.transform.forward);
         }
         else

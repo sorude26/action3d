@@ -9,7 +9,7 @@ using UnityEngine;
 public class MoveController : MonoBehaviour
 {
     private const float BRAKE_DECELERATE = 0.3f;
-    private const float FLOAT_DELAY = 0.2999f;
+    private const float FLOAT_DELAY = 0.9f;
     private const float GROUND_DELAY = 0.7f;
     private const float GRAVITY_SCALE = -0.098f;
     private ActionParameter _parameter = default;
@@ -48,7 +48,7 @@ public class MoveController : MonoBehaviour
     public void GroundDelay()
     {
         Vector3 current = _rb.velocity;
-        float currentY = current.y * GRAVITY_SCALE;
+        float currentY = current.y + GRAVITY_SCALE;
         current *= GROUND_DELAY;
         current.y = currentY;
         _rb.velocity = current;
@@ -101,7 +101,7 @@ public class MoveController : MonoBehaviour
     }
     public void MoveFloat(Vector3 dir)
     {
-        _rb.AddForce(dir.normalized * _parameter.FloatSpeed);
+        _rb.AddForce(dir.normalized * _parameter.FloatSpeed, ForceMode.Impulse);
         //VelocityMove(dir.normalized, _parameter.FloatSpeed, _parameter.MaxFloatSpeed);
     }
     public void Turn(float angle)

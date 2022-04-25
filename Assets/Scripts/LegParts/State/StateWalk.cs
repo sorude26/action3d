@@ -6,9 +6,12 @@ partial class LegController
     public class StateWalk : ILegState
     {
         private const float TURN_DELAY = 0.2f;
+        private float runTime = 1f;
         public void OnEnter(LegController control)
         {
             ChangeDir(control);
+            control._stateTimer = runTime;
+            control._isStateOn = false;
         }
 
         public void OnFixedUpdate(LegController control)
@@ -22,6 +25,14 @@ partial class LegController
 
         public void OnUpdate(LegController control)
         {
+            if (control._stateTimer > 0 && control._isStateOn)
+            {
+                control._stateTimer -= Time.deltaTime;
+                if (control._stateTimer <= 0)
+                {
+                    control._legAnimetor.ChangeAnimation(LegStateType.Ran);
+                }
+            }
             if (control._currentDir != control._moveVector)
             {
                 ChangeDir(control);
@@ -29,11 +40,18 @@ partial class LegController
         }
         private void ChangeDir(LegController control)
         {
+            control._isStateOn = false;
             control._currentDir = control._moveVector;
             if (control._currentDir.z > 0)
             {
                 control._currentDir.x *= TURN_DELAY;
-                control._legAnimetor.ChangeAnimation(LegStateType.Walk);
+                if (control._stateTimer > 0)
+                {
+                    control._stateTimer = runTime;
+                    control._isStateOn = true;
+                    control._legAnimetor.ChangeAnimation(LegStateType.Walk);
+                }
+                return;
             }
             else if (control._currentDir.z < 0)
             {
@@ -52,6 +70,7 @@ partial class LegController
             {
                 control.ChangeState(LegStateType.Idle);
             }
+            control._stateTimer = runTime;
         }
     }
 }

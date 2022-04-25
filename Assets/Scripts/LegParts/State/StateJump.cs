@@ -8,7 +8,7 @@ partial class LegController
         private const float JUMP_DELAY = 0.5f;
         public void OnEnter(LegController control)
         {
-            control._moveController.GroundDelay();
+            control._moveController.MoveBrake();
             control._jumpVector = control._moveVector;
             if (control._jumpVector.z == 0)
             {

@@ -13,7 +13,14 @@ partial class LegController
                 control.ChangeState(LegStateType.Fall);
                 return;
             }
-            control._legAnimetor.ChangeAnimation(LegStateType.Idle);
+            if (control._moveVector == Vector3.zero)
+            {
+                control._legAnimetor.ChangeAnimation(LegStateType.Idle);
+            }
+            else
+            {
+                control.ChangeState(LegStateType.Walk);
+            }
         }
 
         public void OnFixedUpdate(LegController control)

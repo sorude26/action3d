@@ -11,11 +11,15 @@ partial class LegController
             control._legAnimetor.ChangeAnimation(LegStateType.Landing);
             control._stateTimer = control._parameter.LandingTime;
             control._isStateOn = true;
+            control._moveController.MoveBrake();
         }
 
         public void OnFixedUpdate(LegController control)
         {
-            control._moveController.GroundDelay();
+            if (control._stateTimer <= 0)
+            {
+                control._moveController.GroundDelay();
+            }
             if (!control._groundChecker.IsWalled())
             {
                 control.ChangeState(LegStateType.Fall);
