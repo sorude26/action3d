@@ -29,14 +29,8 @@ public class MachineController : MonoBehaviour
     public void InputMove(float x, float z)
     {
         _inputAxis = Vector3.zero;
-        if (Mathf.Abs(x) > 0)
-        {
-            _inputAxis.x = x;
-        }
-        if (Mathf.Abs(z) > 0)
-        {
-            _inputAxis.z = z;
-        }
+        _inputAxis.x = x;
+        _inputAxis.z = z;
         _legControl.Move(_inputAxis);
     }
     public void InputJump()

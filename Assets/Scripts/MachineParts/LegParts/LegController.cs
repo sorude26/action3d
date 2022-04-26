@@ -12,18 +12,25 @@ public partial class LegController : MonoBehaviour
     [Tooltip("脚部アニメーション制御")]
     [SerializeField]
     private LegAnimationController _legAnimetor = default;
+    #region PrivateField
     private ActionParameter _parameter = default;
     private MoveController _moveController = null;
+    /// <summary> 起動中フラグ </summary>
     private bool _isActive = false;
+    /// <summary> 移動目標方向 </summary>
     private Vector3 _moveVector = default;
     private Vector3 _jumpVector = default;
     private Vector3 _turnVector = default;
     private Vector3 _jetVector = default;
     /// <summary> 現在のステート </summary>
     private ILegState _currentState = default;
+    /// <summary> 現在のステート種類 </summary>
     private LegStateType _currentStateType = default;
+    /// <summary> ステート用タイマー </summary>
     private float _stateTimer = default;
+    /// <summary> ステート用フラグ </summary>
     private bool _isStateOn = default;
+    /// <summary> 浮遊モードフラグ </summary>
     private bool _isFloat = default;
     #region LegState
     private StateIdle _sIdle = new StateIdle();
@@ -34,6 +41,8 @@ public partial class LegController : MonoBehaviour
     private StateBoost _sBoost = new StateBoost();
     private StateLanding _sLanding = new StateLanding();
     #endregion
+    #endregion
+    public LegStateType Current { get => _currentStateType; }
     private void Start()
     {
         _currentStateType = LegStateType.Idle;
@@ -94,9 +103,11 @@ public partial class LegController : MonoBehaviour
         }
         _currentState.OnEnter(this);
     }
+
+    #region LegAnimationEvent
     private void OnMove()
     {
-        if(_moveVector.z > 0)
+        if (_moveVector.z > 0)
         {
             if (_stateTimer < 0)
             {
@@ -137,6 +148,7 @@ public partial class LegController : MonoBehaviour
         Vector3 dir = _legAnimetor.transform.forward * _jetVector.z + _legAnimetor.transform.right * _jetVector.x + Vector3.up * JET_UPVECTOR;
         _moveController.MoveJetBoost(dir.normalized);
     }
+    #endregion
     public void StartSet(ActionParameter parameter, MoveController controller)
     {
         _parameter = parameter;
