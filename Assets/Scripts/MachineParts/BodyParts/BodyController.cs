@@ -4,6 +4,9 @@ using UnityEngine;
 
 public partial class BodyController : MonoBehaviour
 {
+    [Tooltip("ÉJÉÅÉâÇÃñ⁄ïW")]
+    [SerializeField]
+    public Transform _bodyRotaionTarget = default;
     [SerializeField]
     private Transform[] _bodyControlBase = new Transform[2];
     [SerializeField]
@@ -33,7 +36,7 @@ public partial class BodyController : MonoBehaviour
         _bodyControlBase[1].localRotation = Quaternion.Lerp(_bodyControlBase[1].localRotation, _headRotaion, BodyRSpeed * Time.deltaTime);
         //ì∑ëÃëÄçÏ
         _bodyControlBase[0].localRotation = Quaternion.Lerp(_bodyControlBase[0].localRotation, _bodyRotaion, BodyRSpeed * Time.deltaTime);
-
+        _bodyRotaionTarget.localRotation = _bodyControlBase[0].localRotation;
         //_leftArm.PartsMotion();
         //_rightArm.PartsMotion();
     }

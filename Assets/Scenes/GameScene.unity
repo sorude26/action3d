@@ -921,7 +921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _followTarget: {fileID: 3052807616309563315}
-  _rotationTarget: {fileID: 3052807616239772574}
+  _rotationTarget: {fileID: 3052807616865912785}
   _followSpeed: 1
   _rotationSpeed: 1
 --- !u!4 &1497390857
@@ -7813,6 +7813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23707e61b14725439ba1b892573a4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bodyRotaionTarget: {fileID: 3052807616865912785}
   _bodyControlBase:
   - {fileID: 3052807617177053218}
   - {fileID: 3052807616018933725}

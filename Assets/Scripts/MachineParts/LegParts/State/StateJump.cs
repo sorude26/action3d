@@ -5,10 +5,11 @@ partial class LegController
 {
     public class StateJump : ILegState
     {
-        private const float JUMP_DELAY = 0.25f;
+        private const float JUMP_DELAY = 0.5f;
         public void OnEnter(LegController control)
         {
             control._moveController.MoveBrake();
+            control._isStateOn = false;
             control._jumpVector = control._moveVector;
             if (control._jumpVector.z == 0)//ジャンプアニメーションの切替
             {
@@ -29,6 +30,10 @@ partial class LegController
 
         public void OnFixedUpdate(LegController control)
         {
+            if (control._isStateOn)
+            {
+                return;
+            }
             if (control._groundChecker.IsWalled())
             {
                 control._moveController.GroundDelay();

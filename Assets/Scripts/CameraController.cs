@@ -50,7 +50,7 @@ public class CameraController : MonoBehaviour
         {
             _cameraRot *= Quaternion.Euler(dir.y * _upSpeed, 0, 0);
         }
-        _cameraRot = ClampRotation(_cameraRot, -90, 90);
+        _cameraRot = ClampRotation(_cameraRot, -80f, 80f);
         _angleY = _cameraRot.x;
         _body.SetBodyRotaion(_cameraRot);
     }

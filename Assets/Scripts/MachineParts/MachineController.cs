@@ -12,7 +12,7 @@ public class MachineController : MonoBehaviour
     [SerializeField]
     LegController _legControl = default;
     [SerializeField]
-    Transform _bodyAngle = default;
+    BodyController _bodyControl = default;
     [SerializeField]
     Transform _front = default;
     Vector3 _inputAxis = Vector3.zero;

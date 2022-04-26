@@ -127,6 +127,7 @@ public partial class LegController : MonoBehaviour
     }
     private void OnJump()
     {
+        _isStateOn = true;
         Vector3 dir = _legAnimetor.transform.forward * _jumpVector.z + _legAnimetor.transform.right * _jumpVector.x + Vector3.up * JUMP_UPVECTOR;
         _moveController.MoveJump(dir.normalized);
     }

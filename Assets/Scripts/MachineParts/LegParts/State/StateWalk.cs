@@ -6,7 +6,7 @@ partial class LegController
     public class StateWalk : ILegState
     {
         private const float TURN_DELAY = 0.2f;
-        private float _runTime = 1f;
+        private float _runTime = 5f;
         private bool _runModeCheck = false;
         private bool _isRunning = false;
         public void OnEnter(LegController control)
