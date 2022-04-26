@@ -29,6 +29,10 @@ partial class LegController
 
         public void OnFixedUpdate(LegController control)
         {
+            if (control._groundChecker.IsWalled())
+            {
+                control._moveController.GroundDelay();
+            }
         }
 
         public void OnUpdate(LegController control)

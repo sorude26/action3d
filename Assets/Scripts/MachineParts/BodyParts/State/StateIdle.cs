@@ -15,6 +15,7 @@ public partial class BodyController
 
         public void OnUpdate(BodyController control)
         {
+            control.PartsMotion();
         }
     }
 }

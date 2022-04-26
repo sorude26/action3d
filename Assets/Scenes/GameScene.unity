@@ -743,7 +743,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1497390857}
+  m_Father: {fileID: 1354391051}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &851907796
@@ -860,6 +860,37 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
+--- !u!1 &1354391050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1354391051}
+  m_Layer: 0
+  m_Name: Base
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1354391051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354391050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 851907795}
+  m_Father: {fileID: 1497390857}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1497390855
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _followTarget: {fileID: 3052807616309563315}
-  _rotationTarget: {fileID: 3052807615577533486}
+  _rotationTarget: {fileID: 3052807616239772574}
   _followSpeed: 1
   _rotationSpeed: 1
 --- !u!4 &1497390857
@@ -904,7 +935,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 851907795}
+  - {fileID: 1354391051}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6530,7 +6561,7 @@ MonoBehaviour:
   _maxRunSpeed: 35
   _turnPower: 8
   _turnSpeed: 3
-  _jumpPower: 35
+  _jumpPower: 65
   _landingTime: 0.6
   _bodyTurnSpeed: 4
   _bodyTurnRange: 0.4
@@ -7408,7 +7439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraTarget: {fileID: 3052807616865912785}
   _headBase: {fileID: 3052807616018933725}
-  _body: {fileID: 0}
+  _body: {fileID: 3052807616239772571}
   _followSpeed: 10
   _lockSpeed: 20
   _upSpeed: 15
@@ -7762,7 +7793,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3052807616239772574}
   - component: {fileID: 3052807616239772573}
-  - component: {fileID: 3052807616239772570}
+  - component: {fileID: 3052807616239772571}
   m_Layer: 0
   m_Name: BodyControl
   m_TagString: Untagged
@@ -7770,7 +7801,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3052807616239772570
+--- !u!114 &3052807616239772571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7779,30 +7810,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 3052807616239772569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b5d25acb0f71ef489ba1e32182279ee, type: 3}
+  m_Script: {fileID: 11500000, guid: a23707e61b14725439ba1b892573a4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
-  _groundCheck: {fileID: 0}
-  _leg: {fileID: 0}
-  _bodyRotaionTarget: {fileID: 0}
   _bodyControlBase:
-  - {fileID: 0}
-  - {fileID: 0}
-  _rightControlBase:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _leftControlBase:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3052807617177053218}
+  - {fileID: 3052807616018933725}
   _controlTarget:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _leftArm: {fileID: 0}
+  _rightArm: {fileID: 0}
 --- !u!95 &3052807616239772573
 Animator:
   serializedVersion: 3
@@ -7892,7 +7911,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3052807616309563314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3052807615989416354}
@@ -13475,7 +13494,7 @@ GameObject:
   - component: {fileID: 3052807617220565357}
   - component: {fileID: 3052807617220565358}
   m_Layer: 11
-  m_Name: MachineBase
+  m_Name: MachineBasePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13509,6 +13528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a87e03c8a2edf419f37f8b5f09c88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 3052807615989416355}
   _controller: {fileID: 3052807616189217945}
 --- !u!4 &3052807617245098548
 Transform:

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public partial class LegController : MonoBehaviour
 {
-    private const float JUMP_VECTOR = 2f;
+    private const float JUMP_UPVECTOR = 0.5f;
     private const float JET_UPVECTOR = 0.2f;
     [Tooltip("接地判定用センサー")]
     [SerializeField]
@@ -127,7 +127,7 @@ public partial class LegController : MonoBehaviour
     }
     private void OnJump()
     {
-        Vector3 dir = _legAnimetor.transform.forward * _jumpVector.z + _legAnimetor.transform.right * _jumpVector.x * JUMP_VECTOR + Vector3.up * JUMP_VECTOR;
+        Vector3 dir = _legAnimetor.transform.forward * _jumpVector.z + _legAnimetor.transform.right * _jumpVector.x + Vector3.up * JUMP_UPVECTOR;
         _moveController.MoveJump(dir.normalized);
     }
     private void OnStop()
