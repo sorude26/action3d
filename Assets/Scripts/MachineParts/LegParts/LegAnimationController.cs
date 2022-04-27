@@ -23,7 +23,6 @@ public class LegAnimationController : MonoBehaviour
     public event Action OnJump = default;
     public event Action OnBrake = default;
     public event Action OnJetBoost = default;
-
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -105,12 +104,18 @@ public class LegAnimationController : MonoBehaviour
     #endregion
     public void ChangeAnimation(LegStateType type) 
     {
-        if(type == _currentAnime)
-        {
-            return;
-        }
         _currentAnime = type;
        ChangeAnimation(_animationNames[(int)type], _defaultChangeTime);
+    }
+    public bool ChangeAnimation(LegStateType type, bool check)
+    {
+        if (_currentAnime == type)
+        {
+            return check;
+        }
+        _currentAnime = type;
+        ChangeAnimation(_animationNames[(int)type], _defaultChangeTime);
+        return true;
     }
     public void SetAnimationSpeed(float speed)
     {

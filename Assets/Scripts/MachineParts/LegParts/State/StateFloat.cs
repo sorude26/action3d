@@ -7,7 +7,6 @@ partial class LegController
     {
         public void OnEnter(LegController control)
         {
-            control._isStateOn = true;
             control._legAnimetor.SetAnimationFloat(true);
             control._isFloat = true;
         }
@@ -21,11 +20,11 @@ partial class LegController
 
         public void OnUpdate(LegController control)
         {
-            if (!control._isStateOn)
+            control._moveController.RotationUpdate();
+            if (!control._isFloat)
             {
                 control._legAnimetor.SetAnimationFloat(false);
                 control.ChangeState(LegStateType.Idle);
-                control._isFloat = false;
             }
         }
     }

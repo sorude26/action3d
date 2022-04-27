@@ -41,9 +41,9 @@ public partial class BodyController : MonoBehaviour
         //_rightArm.PartsMotion();
     }
     void AttackEnd()
-    { 
+    {
     }
-        public void SetBodyRotaion(Quaternion angle)
+    public void SetBodyRotaion(Quaternion angle)
     {
         angle.x = 0;
         angle.z = 0;

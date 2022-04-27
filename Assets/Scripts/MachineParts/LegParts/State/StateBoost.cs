@@ -7,11 +7,6 @@ partial class LegController
     {
         public void OnEnter(LegController control)
         {
-            if (control._moveVector == Vector3.zero)
-            {
-                control.ChangeState(LegStateType.Idle);
-                return;
-            }
             control._jetVector = control._moveVector;
             if (control._moveVector.z < 0)
             {
@@ -33,6 +28,10 @@ partial class LegController
 
         public void OnFixedUpdate(LegController control)
         {
+            if (control._isFloat)
+            {
+                return;
+            }
             if (control._groundChecker.IsWalled())
             {
                 control.ChangeState(LegStateType.Landing);
@@ -41,6 +40,7 @@ partial class LegController
 
         public void OnUpdate(LegController control)
         {
+            control._moveController.RotationUpdateQuick();
         }
     }
 }

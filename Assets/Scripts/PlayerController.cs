@@ -19,4 +19,8 @@ public class PlayerController : MonoBehaviour
         GameScene.InputManager.Instance.OnInputCameraRaw += _camera.FreeLock;
         GameScene.InputManager.Instance.OnInputCameraRawExit += _camera.ResetLock;
     }
+    private void Update()
+    {
+        _controller.InputLook(_camera.CameraRot);
+    }
 }

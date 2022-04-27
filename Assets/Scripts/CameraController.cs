@@ -5,24 +5,22 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    Transform _cameraTarget = default;
+    private Transform _cameraTarget = default;
     [SerializeField]
-    Transform _headBase = default;
+    private float _followSpeed = 5f;
     [SerializeField]
-    BodyController _body = default;
+    private float _lockSpeed = 20f;
     [SerializeField]
-    float _followSpeed = 5f;
-    [SerializeField]
-    float _lockSpeed = 20f;
-    [SerializeField]
-    float _upSpeed = 1f;
-    Quaternion _cameraRot = default;
-    float _minY = -90f;
-    float _maxY = 90f;
-    float _angleY = 0;
-    float _minX = -2f;
-    float _maxX = 2f;
-    Vector3 _startCameraPos = default;
+    private float _upSpeed = 1f;
+    private Quaternion _cameraRot = default;
+    private float _minY = -70f;
+    private float _maxY = 70f;
+    private float _angleY = 0;
+    private float _minX = -2f;
+    private float _maxX = 2f;
+    private Vector2 _minInputLimit = new Vector2(0.1f, 0.5f);
+    private Vector3 _startCameraPos = default;
+    public Quaternion CameraRot { get => _cameraRot; }
     void Start()
     {       
         _cameraRot = transform.localRotation;
@@ -30,37 +28,29 @@ public class CameraController : MonoBehaviour
     }
     private void Update()
     {
-        _cameraRot = _cameraTarget.localRotation;
         _cameraRot.x = _angleY;
         transform.localRotation = Quaternion.Lerp(transform.localRotation, _cameraRot, _followSpeed * Time.deltaTime);
-        _headBase.localRotation = ClampRotation(transform.localRotation, _minX, _maxX);
-    }
-    void DefaultLock()
-    {
-        _cameraRot = _cameraTarget.rotation;
     }
     public void FreeLock(Vector2 dir)
     {
         _cameraRot = _cameraTarget.localRotation;
-        if (Mathf.Abs(dir.x) > 0.1f)
+        if (Mathf.Abs(dir.x) > _minInputLimit.x)
         {
             _cameraRot *= Quaternion.Euler(0, dir.x * _lockSpeed, 0);
         }
-        if (Mathf.Abs(dir.y) > 0.5f)
+        if (Mathf.Abs(dir.y) > _minInputLimit.y)
         {
             _cameraRot *= Quaternion.Euler(dir.y * _upSpeed, 0, 0);
         }
-        _cameraRot = ClampRotation(_cameraRot, -80f, 80f);
+        _cameraRot = ClampRotation(_cameraRot, _minY, _maxY);
         _angleY = _cameraRot.x;
-        _body.SetBodyRotaion(_cameraRot);
     }
     public void ResetLock()
     {
         _angleY = 0;
         _cameraRot = _cameraTarget.localRotation;
-        //_body.InputEnd();
     }
-    Quaternion ClampRotation(Quaternion angle,float minY,float maxY)
+    private Quaternion ClampRotation(Quaternion angle,float minY,float maxY)
     {
         angle.x /= angle.w;
         angle.y /= angle.w;

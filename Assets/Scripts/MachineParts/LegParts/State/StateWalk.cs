@@ -11,6 +11,11 @@ partial class LegController
         private bool _isRunning = false;
         public void OnEnter(LegController control)
         {
+            if (control._isFloat)
+            {
+                control._legAnimetor.ChangeAnimation(LegStateType.Float);
+                return;
+            }
             ChangeDir(control);
             _runModeCheck = false;
             _isRunning = false;
@@ -28,6 +33,7 @@ partial class LegController
 
         public void OnUpdate(LegController control)
         {
+            control._moveController.RotationUpdate();
             if (_runModeCheck && !_isRunning)
             {
                 control._stateTimer -= Time.deltaTime;
@@ -57,22 +63,22 @@ partial class LegController
                 {
                     _runModeCheck = true;
                     control._stateTimer = _runTime;
-                    control._legAnimetor.ChangeAnimation(LegStateType.Walk);
+                    control._legAnimetor.ChangeAnimation(LegStateType.Walk,true);
                 }
                 return;
             }
             else if (control._turnVector.z < 0)
             {
                 control._turnVector.x *= TURN_DELAY;
-                control._legAnimetor.ChangeAnimation(LegStateType.WalkBack);
+                control._legAnimetor.ChangeAnimation(LegStateType.WalkBack,true);
             }
             else if (control._turnVector.x < 0)
             {
-                control._legAnimetor.ChangeAnimation(LegStateType.TurnLeft);
+                control._legAnimetor.ChangeAnimation(LegStateType.TurnLeft,true);
             }
             else if (control._turnVector.x > 0)
             {
-                control._legAnimetor.ChangeAnimation(LegStateType.TurnRight);
+                control._legAnimetor.ChangeAnimation(LegStateType.TurnRight,true);
             }
             else
             {

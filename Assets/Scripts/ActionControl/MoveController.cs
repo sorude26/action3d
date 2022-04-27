@@ -12,6 +12,7 @@ public class MoveController : MonoBehaviour
     private const float FLOAT_DELAY = 0.9f;
     private const float GROUND_DELAY = 0.7f;
     private const float GRAVITY_SCALE = -0.098f;
+    private const float QUICK_TURN = 3f;
     private ActionParameter _parameter = default;
     private Rigidbody _rb = default;
     private Quaternion _baseRotation = Quaternion.Euler(0, 0, 0);
@@ -21,16 +22,16 @@ public class MoveController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
     }
-    private void Update()
-    {
-        RotationUpdate();
-    }
     /// <summary>
     /// 旋回Update
     /// </summary>
-    private void RotationUpdate()
+    public void RotationUpdate()
     {
         BaseTransform.localRotation = Quaternion.Lerp(BaseTransform.localRotation, _baseRotation, _parameter.TurnSpeed * Time.deltaTime);
+    }
+    public void RotationUpdateQuick()
+    {
+        BaseTransform.localRotation = Quaternion.Lerp(BaseTransform.localRotation, _baseRotation, _parameter.TurnSpeed * QUICK_TURN * Time.deltaTime);
     }
     /// <summary>
     /// ホバー中移動速度減衰

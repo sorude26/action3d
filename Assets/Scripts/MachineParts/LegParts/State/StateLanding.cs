@@ -33,6 +33,7 @@ partial class LegController
 
         public void OnUpdate(LegController control)
         {
+            control._moveController.RotationUpdate();
             if (!control._isStateOn)
             {
                 return;

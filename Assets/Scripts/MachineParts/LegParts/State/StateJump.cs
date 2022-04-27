@@ -42,6 +42,7 @@ partial class LegController
 
         public void OnUpdate(LegController control)
         {
+            control._moveController.RotationUpdate();
         }
     }
 }

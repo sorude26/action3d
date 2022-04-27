@@ -7,6 +7,11 @@ partial class LegController
     {
         public void OnEnter(LegController control)
         {
+            if (control._isFloat)
+            {
+                control.ChangeState(LegStateType.Float);
+                return;
+            }
             control._legAnimetor.ChangeAnimation(LegStateType.Fall);
         }
 
@@ -21,6 +26,7 @@ partial class LegController
 
         public void OnUpdate(LegController control)
         {
+            control._moveController.RotationUpdate();
         }
     }
 }

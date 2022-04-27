@@ -30,7 +30,9 @@ public class MachineController : MonoBehaviour
     {
         _inputAxis = Vector3.zero;
         _inputAxis.x = x;
-        _inputAxis.z = z;
+        _inputAxis.z = z; 
+        //Vector3 bodyAngle = _bodyControl._bodyRotaionTarget.forward * _inputAxis.z + _bodyControl._bodyRotaionTarget.forward * _inputAxis.x;
+        //Vector3 bodyAngle = _legControl.LegTransform.forward * _inputAxis.z + _legControl.LegTransform.right * _inputAxis.x;
         _legControl.Move(_inputAxis);
     }
     public void InputJump()
@@ -53,5 +55,9 @@ public class MachineController : MonoBehaviour
     public void InputChangeMode()
     {
         _legControl.ChangeMode();
+    }
+    public void InputLook(Quaternion angle)
+    {
+        _bodyControl.SetBodyRotaion(angle);
     }
 }

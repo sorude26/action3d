@@ -42,7 +42,7 @@ public class ShootingCalculation
         float angle = Vector3.Angle(beforePos - CenterPosition, targetPos - CenterPosition);
 
         float predictionFlame = Vector3.Distance(targetPos, attackerPos) / shotSpeed;
-        for (int i = 0; i < PREDICTION_FLAME_COUNT; ++i)
+        for (int i = 0; i < PREDICTION_FLAME_COUNT; i++)
         {
             predictionFlame = Vector3.Distance(RotateToPos(targetPos, CenterPosition, axis, angle * predictionFlame), attackerPos) / shotSpeed;
         }

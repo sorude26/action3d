@@ -43,6 +43,7 @@ public partial class LegController : MonoBehaviour
     #endregion
     #endregion
     public LegStateType Current { get => _currentStateType; }
+    public Transform LegTransform => _legAnimetor.transform;
     private void Start()
     {
         _currentStateType = LegStateType.Idle;
@@ -146,6 +147,11 @@ public partial class LegController : MonoBehaviour
     }
     private void OnJetBoost()
     {
+        if (_jetVector == Vector3.zero)
+        {
+            _moveController.Turn(Quaternion.AngleAxis(180, _legAnimetor.transform.up));
+            return;
+        }
         Vector3 dir = _legAnimetor.transform.forward * _jetVector.z + _legAnimetor.transform.right * _jetVector.x + Vector3.up * JET_UPVECTOR;
         _moveController.MoveJetBoost(dir.normalized);
     }
@@ -189,9 +195,9 @@ public partial class LegController : MonoBehaviour
         {
             return;
         }
-        if (_currentStateType == LegStateType.Float)
+        if (_isFloat)
         {
-            _isStateOn = false;
+            _isFloat = false;
         }
         else
         {
