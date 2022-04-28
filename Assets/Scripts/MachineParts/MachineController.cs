@@ -16,11 +16,11 @@ public class MachineController : MonoBehaviour
     [SerializeField]
     Transform _front = default;
     Vector3 _inputAxis = Vector3.zero;
-
+    private float _angleY = 0.6f;
     public Vector3 InputAxis { get => _inputAxis; }
     public Transform LookTarget { get; protected set; }
     public ActionParameter Parameter { get => _parameter; }
-
+    private float _angle = default;
     private void Start()
     {
         _moveControl.StartSet(_parameter);
@@ -31,8 +31,6 @@ public class MachineController : MonoBehaviour
         _inputAxis = Vector3.zero;
         _inputAxis.x = x;
         _inputAxis.z = z; 
-        //Vector3 bodyAngle = _bodyControl._bodyRotaionTarget.forward * _inputAxis.z + _bodyControl._bodyRotaionTarget.forward * _inputAxis.x;
-        //Vector3 bodyAngle = _legControl.LegTransform.forward * _inputAxis.z + _legControl.LegTransform.right * _inputAxis.x;
         _legControl.Move(_inputAxis);
     }
     public void InputJump()
@@ -58,6 +56,17 @@ public class MachineController : MonoBehaviour
     }
     public void InputLook(Quaternion angle)
     {
+        _inputAxis = Vector3.zero;
         _bodyControl.SetBodyRotaion(angle);
+        if (Mathf.Abs(angle.y) > _angleY)
+        {
+            if (_angle > Mathf.Abs(angle.y))
+            {
+                return;
+            }
+            _angle = Mathf.Abs(angle.y);
+            _inputAxis.x = angle.y;
+        }
+        _legControl.Move(_inputAxis);
     }
 }
