@@ -56,9 +56,14 @@ public class MachineController : MonoBehaviour
     }
     public void InputLook(Quaternion angle)
     {
+        if (_legControl.Current == LegStateType.Float)
+        {
+            _legControl.Turn(angle.y);
+            return;
+        }
         _inputAxis = Vector3.zero;
         _bodyControl.SetBodyRotaion(angle);
-        if (Mathf.Abs(angle.y) > _angleY)
+        if (Mathf.Abs(angle.y) > _angleY) //胴体旋回限界で旋回行動を行う
         {
             if (_angle > Mathf.Abs(angle.y))
             {

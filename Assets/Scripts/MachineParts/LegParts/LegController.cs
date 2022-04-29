@@ -236,4 +236,8 @@ public partial class LegController : MonoBehaviour
     {
 
     }
+    public void Turn(float angle)
+    {
+        _moveController.Turn(angle);
+    }
 }
