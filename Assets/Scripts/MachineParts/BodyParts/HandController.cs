@@ -24,19 +24,23 @@ public class HandController : MonoBehaviour
         _handBases[0].localRotation = Quaternion.Lerp(_handBases[0].localRotation, _topRotaion, BodyRSpeed * Time.deltaTime);
         _handBases[2].localRotation = Quaternion.Lerp(_handBases[2].localRotation, _handRotaion, BodyRSpeed * Time.deltaTime);
     }
-    bool LockOn(Vector3 targetPos)
+    public void SetLockOn(Vector3 targetPos)
     {
-        bool attack = false;
+        _targetBefore = targetPos;
+        _targetTwoBefore = targetPos;
+        LockOn(targetPos);
+    }
+    private void LockOn(Vector3 targetPos)
+    {
         _targetCurrent = ShootingCalculation.CirclePrediction(_handBases[2].position, targetPos, _targetBefore, _targetTwoBefore, WeaponShotSpeed);
         _controlTarget[2].forward = _targetCurrent - _handBases[2].position;
-        _handRotaion = _controlTarget[2].localRotation * HAND_ANGLE;
-        var range = Quaternion.Dot(_handRotaion, _handBases[2].localRotation);
-        if (range > ATTACK_ANGLE || range < -ATTACK_ANGLE)
-        {
-            attack = true;
-        }
+        _handRotaion = _controlTarget[2].localRotation * HAND_ANGLE;        
         _targetTwoBefore = _targetBefore;
         _targetBefore = targetPos;
-        return attack;
+    }
+    private bool ChackAngle()
+    {
+        var angle = Quaternion.Dot(_handRotaion, _handBases[2].localRotation);
+        return angle > ATTACK_ANGLE || angle < -ATTACK_ANGLE;
     }
 }
