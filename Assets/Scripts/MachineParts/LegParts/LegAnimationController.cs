@@ -102,10 +102,10 @@ public class LegAnimationController : MonoBehaviour
         OnBrake?.Invoke();
     }
     #endregion
-    public void ChangeAnimation(LegStateType type) 
+    public void ChangeAnimation(LegStateType type)
     {
         _currentAnime = type;
-       ChangeAnimation(_animationNames[(int)type], _defaultChangeTime);
+        ChangeAnimation(_animationNames[(int)type], _defaultChangeTime);
     }
     public bool ChangeAnimation(LegStateType type, bool check)
     {

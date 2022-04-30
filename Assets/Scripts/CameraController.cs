@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     private Vector3 _startCameraPos = default;
     public Quaternion CameraRot { get => _cameraRot; }
     void Start()
-    {       
+    {
         _cameraRot = transform.localRotation;
         _startCameraPos = transform.localPosition;
     }
@@ -50,7 +50,7 @@ public class CameraController : MonoBehaviour
         _angleY = 0;
         _cameraRot = _cameraTarget.localRotation;
     }
-    private Quaternion ClampRotation(Quaternion angle,float minY,float maxY)
+    private Quaternion ClampRotation(Quaternion angle, float minY, float maxY)
     {
         angle.x /= angle.w;
         angle.y /= angle.w;

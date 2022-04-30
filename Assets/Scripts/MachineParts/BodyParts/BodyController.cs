@@ -4,7 +4,6 @@ using UnityEngine;
 
 public partial class BodyController : MonoBehaviour
 {
-    private const float ATTACK_ANGLE = 0.999f;
     [Tooltip("ƒJƒƒ‰‚Ì–Ú•W")]
     [SerializeField]
     public Transform _bodyRotaionTarget = default;
@@ -42,8 +41,14 @@ public partial class BodyController : MonoBehaviour
         //“·‘Ì‘€ì
         _bodyControlBase[0].localRotation = Quaternion.Lerp(_bodyControlBase[0].localRotation, _bodyRotaion, BodyRSpeed * Time.deltaTime);
         _bodyRotaionTarget.localRotation = _bodyControlBase[0].localRotation;
-        //_leftArm.PartsMotion();
-        //_rightArm.PartsMotion();
+        if (_leftArm)
+        {
+            _leftArm.PartsMotion();
+        }
+        if (_rightArm)
+        {
+            _rightArm.PartsMotion();
+        }
     }
     public void SetLockOn(Vector3 targetPos)
     {
@@ -66,11 +71,6 @@ public partial class BodyController : MonoBehaviour
         _bodyRotaion = _controlTarget.localRotation;
         _targetTwoBefore = _targetBefore;
         _targetBefore = targetPos;
-    }
-    private bool ChackAngle()
-    {
-        var angle = Quaternion.Dot(_bodyRotaion, _bodyControlBase[0].localRotation);
-        return angle > ATTACK_ANGLE || angle < -ATTACK_ANGLE;
     }
     private void AttackEnd()
     {

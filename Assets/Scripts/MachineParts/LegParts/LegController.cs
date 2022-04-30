@@ -215,11 +215,11 @@ public partial class LegController : MonoBehaviour
         {
             _moveVector.x = -1;
         }
-        if(dir.z > 0)
+        if (dir.z > 0)
         {
             _moveVector.z = 1;
         }
-        else if(dir.z < 0)
+        else if (dir.z < 0)
         {
             _moveVector.z = -1;
         }
@@ -227,7 +227,7 @@ public partial class LegController : MonoBehaviour
         {
             return;
         }
-        if (_moveVector != Vector3.zero) 
+        if (_moveVector != Vector3.zero)
         {
             ChangeState(LegStateType.Walk);
         }

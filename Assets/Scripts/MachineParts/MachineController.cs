@@ -30,7 +30,7 @@ public class MachineController : MonoBehaviour
     {
         _inputAxis = Vector3.zero;
         _inputAxis.x = x;
-        _inputAxis.z = z; 
+        _inputAxis.z = z;
         _legControl.Move(_inputAxis);
     }
     public void InputJump()
@@ -56,7 +56,7 @@ public class MachineController : MonoBehaviour
     }
     public void InputLook(Quaternion angle)
     {
-        if (_legControl.Current == LegStateType.Float)
+        if (_legControl.Current == LegStateType.Float) //ホバー状態なら旋回行動を行う
         {
             _legControl.Turn(angle.y);
             return;

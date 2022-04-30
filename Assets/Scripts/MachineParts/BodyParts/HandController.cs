@@ -34,7 +34,7 @@ public class HandController : MonoBehaviour
     {
         _targetCurrent = ShootingCalculation.CirclePrediction(_handBases[2].position, targetPos, _targetBefore, _targetTwoBefore, WeaponShotSpeed);
         _controlTarget[2].forward = _targetCurrent - _handBases[2].position;
-        _handRotaion = _controlTarget[2].localRotation * HAND_ANGLE;        
+        _handRotaion = _controlTarget[2].localRotation * HAND_ANGLE;
         _targetTwoBefore = _targetBefore;
         _targetBefore = targetPos;
     }
