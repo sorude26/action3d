@@ -26,6 +26,11 @@ public class MachineController : MonoBehaviour
         _moveControl.StartSet(_parameter);
         _legControl.StartSet(_parameter, _moveControl);
     }
+    /// <summary>
+    /// 移動入力
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
     public void InputMove(float x, float z)
     {
         _inputAxis = Vector3.zero;
