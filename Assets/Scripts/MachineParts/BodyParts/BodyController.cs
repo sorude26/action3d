@@ -56,6 +56,10 @@ public partial class BodyController : MonoBehaviour
         _targetTwoBefore = targetPos;
         LockOn(targetPos);
     }
+    /// <summary>
+    /// ターゲットの方向に胴体旋回する
+    /// </summary>
+    /// <param name="targetPos"></param>
     private void LockOn(Vector3 targetPos)
     {
         Vector3 targetDir = targetPos - _bodyControlBase[0].position;
