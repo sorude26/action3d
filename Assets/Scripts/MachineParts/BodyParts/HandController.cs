@@ -10,7 +10,7 @@ public class HandController : MonoBehaviour
     [SerializeField]
     private Transform[] _handBases = new Transform[4];
     [SerializeField]
-    private Transform[] _controlTarget = new Transform[3];
+    private Transform _controlTarget = default;
     private Quaternion _topRotaion = Quaternion.Euler(0, 0, 0);
     private Quaternion _handRotaion = Quaternion.Euler(0, 0, 0);
 
@@ -33,8 +33,8 @@ public class HandController : MonoBehaviour
     private void LockOn(Vector3 targetPos)
     {
         _targetCurrent = ShootingCalculation.CirclePrediction(_handBases[2].position, targetPos, _targetBefore, _targetTwoBefore, WeaponShotSpeed);
-        _controlTarget[2].forward = _targetCurrent - _handBases[2].position;
-        _handRotaion = _controlTarget[2].localRotation * HAND_ANGLE;
+        _controlTarget.forward = _targetCurrent - _handBases[2].position;
+        _handRotaion = _controlTarget.localRotation * HAND_ANGLE;
         _targetTwoBefore = _targetBefore;
         _targetBefore = targetPos;
     }

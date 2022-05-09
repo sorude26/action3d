@@ -16,11 +16,17 @@ public class PlayerController : MonoBehaviour
         GameScene.InputManager.Instance.OnInputAxisRawExit += _controller.MoveEnd;
         GameScene.InputManager.Instance.OnFirstInputChangeMode += _controller.InputChangeMode;
         GameScene.InputManager.Instance.OnFirstInputBooster += _controller.InputJetBoost;
-        GameScene.InputManager.Instance.OnInputCameraRaw += _camera.FreeLock;
-        GameScene.InputManager.Instance.OnInputCameraRawExit += _camera.ResetLock;
+        GameScene.InputManager.Instance.OnInputCameraRaw += CameraCon;
+        GameScene.InputManager.Instance.OnInputCameraRawExit += CameraExit;
     }
-    private void Update()
+    private void CameraCon(Vector2 dir)
     {
+        _camera.FreeLock(dir);
+        _controller.InputLook(_camera.CameraRot);
+    }
+    private void CameraExit()
+    {
+        _camera.ResetLock();
         _controller.InputLook(_camera.CameraRot);
     }
 }

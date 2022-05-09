@@ -57,12 +57,13 @@ public class MachineController : MonoBehaviour
     }
     public void InputChangeMode()
     {
+        _bodyControl.SetBodyRotaion(Quaternion.Euler(0, 0, 0));
         _legControl.ChangeMode();
     }
     public void InputLook(Quaternion angle)
     {
         if (_legControl.Current == LegStateType.Float) //ホバー状態なら旋回行動を行う
-        {
+        {            
             _legControl.Turn(angle.y);
             return;
         }

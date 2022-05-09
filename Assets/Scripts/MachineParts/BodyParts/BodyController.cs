@@ -63,14 +63,14 @@ public partial class BodyController : MonoBehaviour
     private void LockOn(Vector3 targetPos)
     {
         Vector3 targetDir = targetPos - _bodyControlBase[0].position;
-        targetDir.y = 0.0f;
+        targetDir.y = 0.0f; //…•½•ûŒü‚É‚·‚é
         if (BodyTurnRange > 0 && Vector3.Dot(targetDir.normalized, _bodyControlBase[0].forward) < BodyTurnRange)
         {
             return;
         }
         _targetCurrent = ShootingCalculation.CirclePrediction(_bodyControlBase[0].position, targetPos, _targetBefore, _targetTwoBefore, WeaponShotSpeed);
         targetDir = _targetCurrent - _bodyControlBase[0].position;
-        targetDir.y = 0.0f;
+        targetDir.y = 0.0f; //…•½•ûŒü‚É‚·‚é
         _controlTarget.forward = targetDir;
         _bodyRotaion = _controlTarget.localRotation;
         _targetTwoBefore = _targetBefore;
