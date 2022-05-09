@@ -18,6 +18,8 @@ public class WeaponController : MonoBehaviour
     private float _shotInterval = 0.1f;
     [SerializeField]
     private int _maxShotCount = 1;
+    [SerializeField]
+    private int _diffusion = 0;
     private float _timer = 0;
     private int _shotCount = 0;
     private bool _isShoting = default;
@@ -38,7 +40,16 @@ public class WeaponController : MonoBehaviour
         Vector3 swingVector = _muzzle.up * y + _muzzle.right * x;
         return swingVector.normalized * z;
     }
-    private IEnumerator Shot()
+    private void Shot()
+    {
+        if (ObjectPoolManager.Instance.Use(_bullet.gameObject).TryGetComponent<BulletController>(out var shot))
+        {
+            shot.transform.position = _muzzle.position;
+            shot.transform.forward = _muzzle.forward + SwingVector();
+            shot.Shot(_shotPower, _shotSpeed);
+        }
+    }
+    private IEnumerator Shoting()
     {
         while (_shotCount > 0 || _timer < 0)
         {
@@ -47,9 +58,11 @@ public class WeaponController : MonoBehaviour
             {
                 _timer = _shotInterval;
                 _shotCount--;
-                ObjectPoolManager.Instance.Use(_bullet).TryGetComponent<BulletController>(out var shot);
-                shot.SetPos(_muzzle.position, _muzzle.forward + SwingVector());
-                shot.Shot(_shotPower, _shotSpeed);
+                for (int i = 0; i < _diffusion; i++)
+                {
+                    Shot();
+                }
+                Shot();
             }
             yield return null;
         }
@@ -61,7 +74,7 @@ public class WeaponController : MonoBehaviour
         if (!_isShoting)
         {
             _isShoting = true;
-            StartCoroutine(Shot());
+            StartCoroutine(Shoting());
         }
     }
 }

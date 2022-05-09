@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : PoolObject
+public class BulletController : MonoBehaviour
 {
     private const int RAY_COUNT = 3;
     [SerializeField]
@@ -44,9 +44,12 @@ public class BulletController : PoolObject
             {
                 target.AddlyDamage(_power);
             }
-            ObjectPoolManager.Instance.Use(_effect).TryGetComponent(out EffectController effect);
-            effect.SetPos(hit.point, transform.forward);
-            effect.PlayEffect();
+            if (ObjectPoolManager.Instance.Use(_effect.gameObject).TryGetComponent(out EffectController effect))
+            {
+                effect.transform.position = hit.point;
+                effect.transform.forward = transform.forward;
+                effect.PlayEffect();
+            }
             _isShot = false;
             gameObject.SetActive(false);
         }
@@ -60,6 +63,6 @@ public class BulletController : PoolObject
         _beforePos = transform.position;
         _count = 0;
         _power = power;
-        _rb.AddForce(transform.forward * speed, ForceMode.Impulse);
+        _rb.velocity = transform.forward * speed;
     }
 }

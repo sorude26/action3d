@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectController : PoolObject
+public class EffectController : MonoBehaviour
 {
     [SerializeField]
     private ParticleSystem _particle = default;
