@@ -71,6 +71,15 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire1"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d2d05d4-49d6-48ea-91a6-02e4fcb672de"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -326,6 +335,17 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
                     ""action"": ""JetBoost"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0792f2e2-9ac4-4a00-8f99-9868880b8320"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -339,6 +359,7 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
         m_ActionMap_Jump = m_ActionMap.FindAction("Jump", throwIfNotFound: true);
         m_ActionMap_ChangeMode = m_ActionMap.FindAction("ChangeMode", throwIfNotFound: true);
         m_ActionMap_JetBoost = m_ActionMap.FindAction("JetBoost", throwIfNotFound: true);
+        m_ActionMap_Fire1 = m_ActionMap.FindAction("Fire1", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -403,6 +424,7 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMap_Jump;
     private readonly InputAction m_ActionMap_ChangeMode;
     private readonly InputAction m_ActionMap_JetBoost;
+    private readonly InputAction m_ActionMap_Fire1;
     public struct ActionMapActions
     {
         private @ActionControls m_Wrapper;
@@ -412,6 +434,7 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_ActionMap_Jump;
         public InputAction @ChangeMode => m_Wrapper.m_ActionMap_ChangeMode;
         public InputAction @JetBoost => m_Wrapper.m_ActionMap_JetBoost;
+        public InputAction @Fire1 => m_Wrapper.m_ActionMap_Fire1;
         public InputActionMap Get() { return m_Wrapper.m_ActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -436,6 +459,9 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
                 @JetBoost.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnJetBoost;
                 @JetBoost.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnJetBoost;
                 @JetBoost.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnJetBoost;
+                @Fire1.started -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFire1;
+                @Fire1.performed -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFire1;
+                @Fire1.canceled -= m_Wrapper.m_ActionMapActionsCallbackInterface.OnFire1;
             }
             m_Wrapper.m_ActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -455,6 +481,9 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
                 @JetBoost.started += instance.OnJetBoost;
                 @JetBoost.performed += instance.OnJetBoost;
                 @JetBoost.canceled += instance.OnJetBoost;
+                @Fire1.started += instance.OnFire1;
+                @Fire1.performed += instance.OnFire1;
+                @Fire1.canceled += instance.OnFire1;
             }
         }
     }
@@ -466,5 +495,6 @@ public partial class @ActionControls : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnChangeMode(InputAction.CallbackContext context);
         void OnJetBoost(InputAction.CallbackContext context);
+        void OnFire1(InputAction.CallbackContext context);
     }
 }

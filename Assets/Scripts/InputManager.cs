@@ -55,6 +55,8 @@ namespace GameScene
             _inputActions.ActionMap.JetBoost.started += context => { OnJet(); };
             _inputActions.ActionMap.Camera.performed += context => { StartCamera(context); };
             _inputActions.ActionMap.Camera.canceled += context => { EndCamera(); };
+            _inputActions.ActionMap.Fire1.started += context => { OnShot1(); };
+            _inputActions.ActionMap.Fire1.canceled += context => { EndShot1(); };
             /*
             _inputActions.PlayerController.Move.performed += context => { StartMove(context); };
             _inputActions.PlayerController.Move.canceled += context => { EndMove(); };
