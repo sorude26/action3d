@@ -35,6 +35,10 @@ public class ObjectPoolManager : MonoBehaviour
     /// <param name="createCount">ê∂ê¨êî</param>
     public void CreatePool(GameObject poolObject,int createCount = DEFAULT_POOL_COUNT)
     {
+        if (s_keysDic.ContainsKey(poolObject.ToString()))
+        {
+            return;
+        }
         var poolObjects = new List<GameObject>();
         for (int i = 0; i < createCount; i++)
         {
