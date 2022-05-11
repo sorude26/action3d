@@ -11,6 +11,8 @@ public class BulletController : MonoBehaviour
     private float _lifeTime = 2;
     [SerializeField]
     private EffectController _effect = default;
+    [SerializeField]
+    private bool _rayCheck = true;
     private int _power = 1;
     private Vector3 _beforePos = default;
     private int _count = 0;
@@ -28,7 +30,18 @@ public class BulletController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        HitCheck();
+        if (_rayCheck)
+        {
+            HitCheck();
+        }
+    }
+    private void OnCollisionEnter(Collision hit)
+    {
+        if (hit.collider.TryGetComponent(out IDamageApplicable target))
+        {
+            target.AddlyDamage(_power);
+        }
+        HitAction(transform.position);
     }
     private void HitCheck()
     {
@@ -44,17 +57,23 @@ public class BulletController : MonoBehaviour
             {
                 target.AddlyDamage(_power);
             }
-            if (ObjectPoolManager.Instance.Use(_effect.gameObject).TryGetComponent(out EffectController effect))
-            {
-                effect.transform.position = hit.point;
-                effect.transform.forward = transform.forward;
-                effect.PlayEffect();
-            }
+            HitAction(hit.point);
             _isShot = false;
             gameObject.SetActive(false);
         }
         _beforePos = transform.position;
         _count = 0;
+    }
+    private void HitAction(Vector3 hit)
+    {
+        if (ObjectPoolManager.Instance.Use(_effect.gameObject).TryGetComponent(out EffectController effect))
+        {
+            effect.transform.position = hit;
+            effect.transform.forward = transform.forward;
+            effect.PlayEffect();
+        }
+        _isShot = false;
+        gameObject.SetActive(false);
     }
     public void Shot(int power, float speed)
     {
