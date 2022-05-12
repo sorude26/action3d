@@ -62,7 +62,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 5, y: 5, z: 1}
+      - m_Value: {x: 5, y: 5, z: 5}
         m_Name: Size
         m_Overridden: 1
     m_Vector4f:
@@ -82,7 +82,7 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 1, g: 0, b: 0.31596994, a: 0}
+          key0: {r: 1, g: 0, b: 0.31596994, a: 1}
           key1: {r: 90.5097, g: 0, b: 2.5266213, a: 1}
           key2: {r: 1, g: 0, b: 0.606668, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
@@ -99,7 +99,7 @@ VisualEffect:
           ctime6: 0
           ctime7: 0
           atime0: 0
-          atime1: 6554
+          atime1: 4626
           atime2: 37972
           atime3: 65535
           atime4: 0
@@ -134,6 +134,7 @@ VFXRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
