@@ -54,16 +54,15 @@ public class WeaponController : MonoBehaviour
         while (_shotCount > 0 || _timer < 0)
         {
             _timer -= Time.deltaTime;
-            if (_timer <= 0 && _shotCount > 0)
+            if (_timer > 0 && _shotCount <= 0) { yield return null; }
+            _timer = _shotInterval;
+            _shotCount--;
+            int bulletCount = _diffusion;
+            do
             {
-                _timer = _shotInterval;
-                _shotCount--;
-                for (int i = 0; i < _diffusion; i++)
-                {
-                    Shot();
-                }
+                bulletCount--;
                 Shot();
-            }
+            } while (bulletCount >= 0);
             yield return null;
         }
         _isShoting = false;

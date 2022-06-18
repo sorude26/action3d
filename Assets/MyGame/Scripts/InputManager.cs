@@ -103,7 +103,7 @@ namespace GameScene
                 {
                     _firstInputAxisRaw = true;
                 }
-            }            
+            }
         }
         void EndMove()
         {

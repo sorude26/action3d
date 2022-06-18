@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 6454429424154679088}
   _lifeTime: 1
-  _effect: {fileID: 8116301305736011759, guid: 0d6ef9d98a4c29248b6aa366499684ec, type: 3}
+  _effect: {fileID: 1163484042293667540, guid: d09eb44d6ce07274487949ab0bcf9e2a, type: 3}
   _rayCheck: 0
 --- !u!135 &889268869287315250
 SphereCollider:
